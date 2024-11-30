@@ -24,11 +24,25 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        animator.SetBool("isDead", true); // Ölüm animasyonunu tetikle
+        if (animator != null)
+        {
+            animator.SetBool("isDead", true); // Ölüm animasyonunu tetikle
+        }
+
         if (enemyAI != null)
         {
             enemyAI.OnDeath(); // EnemyAI'ye ölümü bildir
         }
-        Destroy(gameObject, 3f); // 3 saniye sonra düþmaný yok et
+
+        if (transform.parent != null)
+        {
+            Debug.Log("Parent objesi yok ediliyor: " + transform.parent.name);
+            Destroy(transform.parent.gameObject, 3f); // Parent objeyi yok et
+        }
+        else
+        {
+            Debug.Log("Objesi yok ediliyor: " + gameObject.name);
+            Destroy(gameObject, 3f); // Parent yoksa kendi objesini yok et
+        }
     }
 }
