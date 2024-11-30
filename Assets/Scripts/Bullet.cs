@@ -1,18 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int damage = 10; // Bullet'ýn vereceði hasar miktarý
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        // Eðer çarpýlan obje "Enemy" tag'ine sahipse
+        if (other.CompareTag("Enemy"))
+        {
+            // Enemy'deki Health script'ini al
+            EnemyAI enemyHealth = other.GetComponent<EnemyAI>();
+            if (enemyHealth != null)
+            {
+                // Hasar ver
+                enemyHealth.TakeDamage(damage);
+            }
+            // Mermiyi yok et
+            Destroy(gameObject);
+        }
     }
 }
