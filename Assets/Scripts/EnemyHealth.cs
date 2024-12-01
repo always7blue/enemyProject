@@ -1,26 +1,39 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int health = 100; // Can miktarý
- 
-    // EnemyAI scriptine referans
+    public int maxHealth = 100; // Can miktarý
+    public int currentHealth;
+    public Image healthBar;
+
 
     void Start()
     {
         
-      
-
+      currentHealth = maxHealth;
+      UpdateHealthBar();
 
     }
 
     public void TakeDamage(int damage)
     {
         Debug.Log("Düþman " + damage + " hasar yedi.");
-        health -= damage;
-        if (health <= 0)
+        currentHealth -= damage;
+        
+        if (currentHealth <= 0)
         {
             Die();
+        }
+
+        UpdateHealthBar();
+    }
+
+    void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = (float)currentHealth / maxHealth; // Saðlýk yüzdesine göre doluluk
         }
     }
 
