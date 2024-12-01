@@ -3,13 +3,15 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     public int health = 100; // Can miktarý
-    private Animator animator;
-    private EnemyAI enemyAI; // EnemyAI scriptine referans
+ 
+    // EnemyAI scriptine referans
 
     void Start()
     {
-        animator = GetComponent<Animator>(); // Animator bileþeni
-        enemyAI = GetComponent<EnemyAI>();   // EnemyAI scriptini al
+        
+      
+
+
     }
 
     public void TakeDamage(int damage)
@@ -24,9 +26,13 @@ public class EnemyHealth : MonoBehaviour
 
     private void Die()
     {
-        if (animator != null)
+
+        EnemyAI enemyAI = GetComponentInParent<EnemyAI>();
+
+
+        if (enemyAI == null)
         {
-            animator.SetBool("isDead", true); // Ölüm animasyonunu tetikle
+            Debug.Log("EnemyAI'a ulaþýlamýyor" + gameObject.name);
         }
 
         if (enemyAI != null)

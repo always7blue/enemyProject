@@ -53,13 +53,18 @@ public class EnemyAI : MonoBehaviour
     public void OnDeath()
     {
         // Düþman öldüðünde hareketi durdur
-        if (agent != null)
-        {
-            agent.isStopped = true;
-        }
 
+        Debug.Log("OnDeath Metodu çalýþtý");
+        
+        agent.isStopped = true;
+        
+
+       
+     
         if (animator != null)
         {
+            Debug.Log("Ölüm animasyonu tetiklendi.");
+            animator.SetBool("isDead", true); // Ölüm animasyonunu tetikle
             animator.SetBool("isWalking", false);
         }
     }
