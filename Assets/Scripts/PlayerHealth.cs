@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
@@ -6,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     public int maxHealth = 100; // Maksimum can
     private int currentHealth; // Mevcut can
     public Image playerHealth;
+    public GameObject diePanel;
+    public float delayBeforeMainMenu = 3f; // Ana menüye geçmeden önceki bekleme süresi (saniye)
 
     private void Start()
     {
@@ -36,5 +40,17 @@ public class PlayerHealth : MonoBehaviour
     {
         Debug.Log("Player is dead!");
         // Oyuncu öldüðünde yapýlacak iþlemler
+
+        diePanel.SetActive(true);
+        StartCoroutine(WaitAndLoadMainMenu());
+
+    }
+
+    private IEnumerator WaitAndLoadMainMenu()
+    {
+        yield return new WaitForSeconds(delayBeforeMainMenu); // Belirtilen süre kadar bekler
+        SceneManager.LoadScene(0); // Ana menü sahnesini yükler
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }
